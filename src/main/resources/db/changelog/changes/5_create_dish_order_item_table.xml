@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.9.xsd">
+
+    <changeSet id="create_dish_order_item_table" author="Pavlo Manuilenko">
+        <preConditions>
+            <not>
+                <tableExists tableName="dish_order_item"/>
+            </not>
+            <tableExists tableName="dish"/>
+            <tableExists tableName="d_order"/>
+        </preConditions>
+        <createTable tableName="dish_order_item">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="dish_order_item_id_pk"/>
+            </column>
+            <column name="dish_id" type="bigint"/>
+            <column name="order_id" type="bigint"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="dish_order_item" baseColumnNames="dish_id"
+                                 constraintName="dish_order_item_dish_id_fk"
+                                 referencedTableName="dish"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="dish_order_item" baseColumnNames="order_id"
+                                 constraintName="dish_order_item_order_id_fk"
+                                 referencedTableName="d_order"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

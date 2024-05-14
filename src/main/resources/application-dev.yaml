@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: 'jdbc:h2:./data/faceItAssignment'
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+  liquibase:
+    change-log: 'classpath:db/changelog/db.changelog-master-dev.xml'
+    contexts: dev
+  web:
+    locale: en_EN
+    locale-resolver: fixed
+

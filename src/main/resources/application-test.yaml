@@ -1,0 +1,4 @@
+spring:
+  web:
+    locale: en_EN
+    locale-resolver: fixed

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.9.xsd">
+
+    <changeSet id="create_drink_addition_order_item_table" author="Pavlo Manuilenko">
+        <preConditions>
+            <not>
+                <tableExists tableName="drink_addition_order_item"/>
+            </not>
+            <tableExists tableName="drink_addition"/>
+            <tableExists tableName="drink_order_item"/>
+        </preConditions>
+        <createTable tableName="drink_addition_order_item">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="drink_addition_order_item_id_pk"/>
+            </column>
+            <column name="drink_addition_id" type="bigint"/>
+            <column name="drink_order_item_id" type="bigint"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="drink_addition_order_item" baseColumnNames="drink_addition_id"
+                                 constraintName="drink_addition_order_item_drink_addition_id_fk"
+                                 referencedTableName="drink_addition"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="drink_addition_order_item" baseColumnNames="drink_order_item_id"
+                                 constraintName="drink_addition_order_item_drink_order_item_id_fk"
+                                 referencedTableName="drink_order_item"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>
